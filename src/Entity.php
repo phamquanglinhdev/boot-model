@@ -94,6 +94,4 @@ trait Entity
         $this->commitedProperties = $commitedProperties;
     }
 
-
-
 }

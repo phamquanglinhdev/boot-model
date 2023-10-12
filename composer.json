@@ -2,7 +2,7 @@
     "name": "laptrinhluon/ltl-model",
     "description": "Easy boot model",
     "type": "php",
-    "license": "aaa",
+    "license": "MIT",
     "authors": [
         {
             "name": "phamquanglinhdev",
