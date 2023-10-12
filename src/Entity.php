@@ -21,17 +21,17 @@ trait Entity
     /**
      * @var array
      */
-    private $availableProperties = [];
+    protected $availableProperties = [];
 
     /**
      * @var array
      */
-    private $changedProperties = [];
+    protected $changedProperties = [];
 
     /**
      * @var array
      */
-    private $commitedProperties = [];
+    protected $commitedProperties = [];
 
     /**
      * @return array
