@@ -7,6 +7,8 @@
 
 namespace phamquanglinhdev\Laptrinhluon;
 
+use phamquanglinhdev\Laptrinhluon\Exceptions\PopulatingException;
+
 /**
  * ${PARAM_DOC}
  * @return ${TYPE_HINT}
@@ -94,4 +96,59 @@ trait Entity
         $this->commitedProperties = $commitedProperties;
     }
 
+    public function markChange(string $property)
+    {
+        $this->changedProperties[] = $property;
+    }
+
+    /**
+     * @param string $property
+     * @param string $value
+     * @return void
+     * @throws PopulatingException
+     * @author Phạm Quang Linh <linhpq@getflycrm.com>
+     * @since 12/10/2023 2:30 pm
+     */
+    public function set(string $property, string $value)
+    {
+        if (! property_exists($this, $property)) {
+            throw new PopulatingException("$property not singable in this model");
+        }
+
+        $this->{$property} = $value;
+    }
+
+    /**
+     * @param array $data
+     * @return void
+     * @throws PopulatingException
+     * @author Phạm Quang Linh <linhpq@getflycrm.com>
+     * @since 12/10/2023 2:32 pm
+     */
+    public function populate(array $data = [])
+    {
+        foreach ($data as $property => $value) {
+            $this->set($property, $value);
+            $this->markChange($property);
+        }
+    }
+
+    /**
+     * @return array
+     * @throws PopulatingException
+     * @since 12/10/2023 2:38 pm
+     * @author Phạm Quang Linh <linhpq@getflycrm.com>
+     */
+    public function getAvailableData(): array
+    {
+        $data = [];
+        foreach ($this->availableProperties as $property) {
+            if (property_exists($this, $property)) {
+                throw new PopulatingException("$property not found in this model");
+            }
+            $data[$property] = $this->{$property};
+        }
+
+        return $data;
+    }
 }
