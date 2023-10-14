@@ -11,7 +11,7 @@ use Throwable;
 
 class PopulatingException extends \Exception
 {
-    public function __construct($message = '', $code = 0, Throwable $previous = null)
+    public function __construct($message = '', $code = 400, Throwable $previous = null)
     {
         if (empty($message)) {
             $message = 'invalid field exception';
